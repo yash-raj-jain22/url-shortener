@@ -3,6 +3,7 @@ const app = express();
 import dotenv from 'dotenv';
 import connectDB from './src/config/mongo.config.js';
 import shorturl from './src/routes/shortUrl.route.js';
+import { redirectShortUrl } from './src/controller/shortUrl.controller.js';
 
 dotenv.config("./.env");
 
@@ -12,17 +13,7 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use("/api/create", shorturl)
 
-app.get("/:shorty", async (req, res) => {
-  const { shorty } = req.params
-  const shortUrlDoc = await shortUrlSchema.findOne({ shortUrl: shorty })
-  if (shortUrlDoc) {
-    console.log(shortUrlDoc.fullUrl)
-    return res.redirect(`http://${shortUrlDoc.fullUrl}`)
-  }
-  if (!shortUrlDoc) {
-    return res.status(404).send("Short URL not found")
-  }
-})
+app.get("/:shorty", redirectShortUrl)
 
 
 
