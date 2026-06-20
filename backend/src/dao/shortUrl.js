@@ -1,6 +1,7 @@
 import shortUrlSchema from "../models/Shorturl.model.js"
 
-export const saveShortUrl = async (longUrl, shortCode, userId) => {
+export const saveShortUrl = (async (longUrl, shortCode, userId) => {
+
     const newShortUrl = new shortUrlSchema({
         fullUrl: longUrl,
         shortUrl: shortCode
@@ -10,7 +11,7 @@ export const saveShortUrl = async (longUrl, shortCode, userId) => {
         newShortUrl.userId = userId
     }
     await newShortUrl.save()
-};
+});
 
 
 export const getUrlData = async (shortCode) => {
