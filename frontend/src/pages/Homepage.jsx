@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import UiForm from '../components/UiForm';
+import UrlForm from '../components/UrlForm';
 
 
 
 
 
 const Homepage = () => {
-    
+
 
     return (
         <>
@@ -21,9 +21,9 @@ const Homepage = () => {
                         </div>
 
                         {/* Form */}
-                        <UiForm />
+                        <UrlForm />
 
-                        
+
 
                         {/* Info */}
                         <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200">

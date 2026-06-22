@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { createShortUrl } from '../api/shortUrl';
 
-const UiForm = () => {
+const UrlForm = () => {
     const [longUrl, setlongUrl] = useState('')
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
@@ -119,4 +119,4 @@ const UiForm = () => {
     )
 }
 
-export default UiForm
+export default UrlForm

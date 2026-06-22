@@ -5,18 +5,20 @@ import shorturl from './src/routes/shortUrl.route.js';
 import { redirectShortUrl } from './src/controller/shortUrl.controller.js';
 import errorHandler from './src/utils/errorHandler.js';
 import cors from 'cors';
-
+import authRoutes from './src/routes/auth.route.js';
 
 
 const app = express();
-app.use(cors())
-
 dotenv.config();
 
+
+
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-
 app.use("/api/create", shorturl)
+app.use("/api/auth", authRoutes)
+
 
 app.get("/:shorty", redirectShortUrl)
 
@@ -24,8 +26,8 @@ app.get("/:shorty", redirectShortUrl)
 app.use(errorHandler)
 
 
+
 app.listen(5000, () => {
   connectDB()
   console.log("server is running on port http://localhost:5000")
 })
-
