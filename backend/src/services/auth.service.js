@@ -10,7 +10,7 @@ export const register_user = async ({ name, email, password }) => {
     }
     const user = await createUser({ name, email, password });
     const token = await signToken({ id: user._id });
-    return {  token };
+    return {  token, user };
 };
 export const login_user = async ({  email, password }) => {
     const user = await findUserByEmail(email);
@@ -19,5 +19,5 @@ export const login_user = async ({  email, password }) => {
         throw new Error("Invalid email or password");
     }
     const token = await signToken({ id: user._id });
-    return {  token };
+    return {  token, user };
 };

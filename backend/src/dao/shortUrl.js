@@ -8,7 +8,7 @@ export const saveShortUrl = (async (longUrl, shortCode, userId) => {
     })
 
     if (userId) {
-        newShortUrl.userId = userId
+        newShortUrl.user = userId
     }
     await newShortUrl.save()
 });
@@ -20,4 +20,9 @@ export const getUrlData = async (shortCode) => {
         return null
     }
     return urlData
+}
+
+export const getCustomUrlData = async (customCode) => {
+    const urlData = await shortUrlSchema.findOne({ shortUrl: customCode })
+    return urlData || null
 }

@@ -6,6 +6,8 @@ import { redirectShortUrl } from './src/controller/shortUrl.controller.js';
 import errorHandler from './src/utils/errorHandler.js';
 import cors from 'cors';
 import authRoutes from './src/routes/auth.route.js';
+import { attachUser } from './src/utils/attachUser.js';
+import cookieParser from 'cookie-parser';
 
 
 const app = express();
@@ -16,10 +18,12 @@ dotenv.config();
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+app.use(cookieParser())
+app.use(attachUser)
+
 app.use("/api/create", shorturl)
 app.use("/api/auth", authRoutes)
-
-
 app.get("/:shorty", redirectShortUrl)
 
 

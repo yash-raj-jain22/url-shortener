@@ -5,15 +5,16 @@ import errorWrapper from "../utils/errorWrapper.js";
 export const registerUser = errorWrapper(async (req, res) => {
     // Add jwt register
     const { name, email, password } = req.body;
-    const { token } = await register_user({ name, email, password });
+    const { token, user } = await register_user({ name, email, password });
+    req.user = user;
     res.cookie("accessToken", token, cookieOptions);
     res.status(200).json({ message: "User registered successfully" });
 });
 
 export const loginUser = errorWrapper(async (req, res) => {
     const { email, password } = req.body;
-    const { token } = await login_user({ email, password });
-
+    const { token, user } = await login_user({ email, password });
+    req.user = user;
     res.cookie("accessToken", token, cookieOptions);
     res.status(200).json({ message: "User logged in successfully" });
 });
