@@ -1,4 +1,3 @@
-import jsonwebtoken from "jsonwebtoken"
 import { findUserByEmail, createUser } from "../dao/user.dao.js";
 import { signToken } from "../utils/helper.js";
 
@@ -10,14 +9,15 @@ export const register_user = async ({ name, email, password }) => {
     }
     const user = await createUser({ name, email, password });
     const token = await signToken({ id: user._id });
-    return {  token, user };
+    return { token, user };
 };
-export const login_user = async ({  email, password }) => {
-    const user = await findUserByEmail(email);
-
-    if (!user || user.password !== password) {
+export const login_user = async ({ email, password }) => {
+    const user = await findUserByEmail(email,true);
+    const isPasswordValid = await user?.comparePassword(password);
+    if (!user || !isPasswordValid) {
         throw new Error("Invalid email or password");
     }
     const token = await signToken({ id: user._id });
-    return {  token, user };
+    const safeUser = user.toObject();
+    return { token, user: safeUser };
 };

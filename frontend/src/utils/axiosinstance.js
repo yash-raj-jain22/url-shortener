@@ -1,8 +1,10 @@
 import axios from "axios";
+import {env} from "./config";
 
 const axiosInstance = axios.create({
-    baseURL: "http://localhost:5000",
+    baseURL: env.BACKEND_URL,
     timeout: 10000,
+    withCredentials: true,
 });
 
 

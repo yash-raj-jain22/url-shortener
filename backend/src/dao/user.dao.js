@@ -1,14 +1,21 @@
-import User from '../models/User.model.js';
+import User from "../models/user.model.js";
 
-export const findUserByEmail = async (email) => {
-    const user = await User.findOne({ email });
+export const findUserByEmail = async (email, includePassword = false) => {
+    let query = User.findOne({ email });
+    if (includePassword) {
+        query = query.select("+password");
+    }
+    const user = await query;
     return user;
 }
+
 
 export const createUser = async ({ name, email, password }) => {
     const user = new User({ name, email, password });
     await user.save();
-    return user;
+    const safeUser = user.toObject();
+    delete safeUser.password;
+    return safeUser;
 }
 
 export const findUserById = async (id) => {

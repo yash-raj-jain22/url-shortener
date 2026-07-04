@@ -1,11 +1,17 @@
-import express from "express"
+import express from "express";
 
+const router = express.Router();
+import {
+    generateShortUrl,
+    getShortUrls,
+    getShortUrl,
+    deleteShortUrl,
+} from "../controller/shortUrl.controller.js";
+import { authMiddleware } from "../middleware/auth.middleware.js";
 
-const router = express.Router()
-import {generateShortUrl} from "../controller/shortUrl.controller.js"
+router.post("/create/", generateShortUrl);
+router.get("/get", authMiddleware, getShortUrls);
+router.get("/get/:shortUrl", authMiddleware, getShortUrl);
+router.delete("/delete/:shortUrl", authMiddleware, deleteShortUrl);
 
-
-router.post("/", generateShortUrl)
-
-
-export default router
+export default router;

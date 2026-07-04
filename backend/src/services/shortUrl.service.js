@@ -1,25 +1,37 @@
-import { generateNanoId } from "../utils/helper.js"
-import shortUrlSchema from "../models/Shorturl.model.js"
-import { getCustomUrlData, saveShortUrl } from "../dao/shortUrl.js"
-
+import { generateNanoId } from "../utils/helper.js";
+import shortUrlSchema from "../models/Shorturl.model.js";
+import { getCustomUrlData, saveShortUrl } from "../dao/shortUrl.js";
 
 export const createShortUrlWithoutUser = async (url) => {
-    const shorty = generateNanoId(7)
-    if (!shorty){
-        throw new Error("Failed to generate short URL")
+    const shorty = generateNanoId(7);
+    if (!shorty) {
+        throw new Error("Failed to generate short URL");
     }
-    await saveShortUrl(url, shorty)
-    return shorty
-}
-
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + 1);
+    await saveShortUrl(url, shorty, null, expiresAt);
+    return shorty;
+};
 
 export const createShortUrlWithUser = async (url, userId, slug = null) => {
-    const existingUrl = await getCustomUrlData(slug)
-    console.log("Existing URL for slug:", existingUrl) // Debugging line
+    const existingUrl = await getCustomUrlData(slug);
     if (existingUrl) {
-        throw new Error("Custom URL already exists")
+        throw new Error("Custom URL already exists");
     }
-    const shorty = slug || generateNanoId(7)
-    await saveShortUrl(url, shorty, userId)
-    return shorty
-}
+    const shorty = slug || generateNanoId(7);
+    await saveShortUrl(url, shorty, userId,null);
+    return shorty;
+};
+
+export const getShortUrlsByUser = async (userId) => {
+    const shortUrls = await shortUrlSchema.find({ user: userId });
+    return shortUrls;
+};
+
+export const deleteUrl = async (UrlId) => {
+    const url = await shortUrlSchema.findByIdAndDelete(UrlId);
+    if (!url) {
+        throw new Error("URL not found");
+    }
+    return url;
+};
