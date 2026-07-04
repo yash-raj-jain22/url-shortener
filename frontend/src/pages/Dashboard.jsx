@@ -14,13 +14,12 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "@tanstack/react-router";
 import { logoutUser } from "../api/user.api";
 import { getShortUrls } from "../api/shortUrl";
-import {env} from "../utils/config.js";
 
 function Dashboard() {
     const user = useSelector((state) => state.auth.user?.user) || null;
     const Navigate = useNavigate();
     const [urls, seturls] = useState([]);
-    const backendUrl = env.BACKEND_URL;
+    const backendUrl = import.meta.env.VITE_BACKEND_URL 
 
     useEffect(() => {
         const fetchUserUrls = async () => {

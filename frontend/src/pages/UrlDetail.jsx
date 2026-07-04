@@ -19,13 +19,12 @@ import { QRCodeCanvas } from "qrcode.react";
 import { LineChart, Line, XAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useParams } from "@tanstack/react-router";
 import { deleteShortUrl, getShortUrl } from "../api/shortUrl";
-import { env } from "../utils/config.js";
 
 function UrlDetail() {
     const { shortUrl } = useParams({ from: "/url/$shortUrl" });
     const [qrStyle, setQrStyle] = useState("rounded");
     const [ShortUrlData, setShortUrlData] = useState([]);
-    const backendUrl = env.BACKEND_URL;
+    const backendUrl = import.meta.env.VITE_BACKEND_URL
 
     useEffect(async () => {
         const shortUrlData = await getShortUrl(shortUrl);
