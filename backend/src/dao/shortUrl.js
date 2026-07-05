@@ -1,4 +1,4 @@
-import shortUrlSchema from "../models/Shorturl.model.js";
+import shortUrlSchema from "../models/ShortUrl.model.js";
 
 export const saveShortUrl = async (
     longUrl,

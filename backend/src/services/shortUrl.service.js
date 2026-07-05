@@ -19,7 +19,7 @@ export const createShortUrlWithUser = async (url, userId, slug = null) => {
         throw new Error("Custom URL already exists");
     }
     const shorty = slug || generateNanoId(7);
-    await saveShortUrl(url, shorty, userId,null);
+    await saveShortUrl(url, shorty, userId, null);
     return shorty;
 };
 
