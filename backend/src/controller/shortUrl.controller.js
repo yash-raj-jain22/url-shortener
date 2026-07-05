@@ -66,7 +66,7 @@ export const deleteShortUrl = errorWrapper(async (req, res) => {
     if (!urlData?.user) {
         return res.status(403).send("Forbidden");
     }
-    if (urlData.user() !== req.user.id) {
+    if (urlData.user !== req.user.id) {
         return res.status(403).send("Forbidden");
     }
     if (!urlData) {
