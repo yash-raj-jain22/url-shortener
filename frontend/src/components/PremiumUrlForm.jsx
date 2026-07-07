@@ -6,7 +6,7 @@ import { useEffect } from "react";
 function PremiumUrlForm() {
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-    const user = useSelector((state) => state.auth.user?.user);
+    const user = useSelector((state) => state.auth.user);
 
     return (
         <div>
@@ -22,7 +22,7 @@ function PremiumUrlForm() {
                                     Premium Workspace
                                 </p>
                                 <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">
-                                    Welcome, {user.name || "User"}
+                                    Welcome, {user?.name || "User"}
                                 </h1>
                             </div>
                             <span className="w-fit rounded-full border border-emerald-300/70 bg-emerald-50 px-4 py-1 text-xs font-semibold text-emerald-700">

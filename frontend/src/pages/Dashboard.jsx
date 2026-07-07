@@ -16,7 +16,7 @@ import { logoutUser } from "../api/user.api";
 import { getShortUrls } from "../api/shortUrl";
 
 function Dashboard() {
-    const user = useSelector((state) => state.auth.user?.user) || null;
+    const user = useSelector((state) => state.auth.user) || null;
     const Navigate = useNavigate();
     const [urls, seturls] = useState([]);
     const backendUrl = import.meta.env.VITE_BACKEND_URL 
