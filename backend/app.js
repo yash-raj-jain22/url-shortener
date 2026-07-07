@@ -28,6 +28,10 @@ app.use("/api/url", shorturl);
 app.use("/api/auth", authRoutes);
 app.get("/:shorty", redirectShortUrl);
 
+app.get("/api/health", (req, res) => {
+    res.status(200).json({ message: "Server is healthy" });
+});
+
 app.use(errorHandler);
 
 app.listen(5000, () => {
